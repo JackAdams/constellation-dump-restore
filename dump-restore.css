@@ -1,0 +1,75 @@
+.Constellation_dump_restore_mode {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.Constellation_dump_restore_active {
+  background-color: rgba(43, 63, 83, 0.92);
+}
+
+.Constellation_dump_restore_button {
+  float: right;
+  border-left: 1px solid rgba(0,0,0,.4);
+  padding: 0 6px;
+}
+
+.Constellation_dump_restore_button:hover {
+  color: #2CA6E2;
+  transition: .2s;
+  cursor: pointer;
+}
+
+.Constellation_dump_output {
+  width: 600px;
+  height: 400px;
+  color: #000;
+}
+
+/* This is going to mess with apps with sAlert already in them */
+
+.s-alert-box {
+  max-width: 90%;
+  z-index: 2147483647 !important;
+}
+
+.s-alert-box pre {
+  white-space: pre-wrap;
+}
+
+#Constellation.Constellation {
+ z-index: 2147483646;	
+}
+
+.Constellation_dumpable_collections {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Constellation_dumpable_collections li {
+  margin: 0;
+}
+
+.Constellation_dumpable_collections li label{
+  display: inline-block;
+}
+
+#Constellation .Constellation_dumpable_collection {
+  padding: 0 8px;
+  overflow: hidden;
+}
+
+#Constellation .Constellation_collection_item {
+  color: rgba(255,255,255,.8);
+}
+
+#Constellation .Constellation_dumpable_collection input {
+  vertical-align: middle;
+}
+
+.Constellation_dump_restore_restore_text {
+  width: 100%;
+  height: 98%;
+  opacity: 0.8;
+  color: #000;	
+}

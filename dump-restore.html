@@ -1,0 +1,26 @@
+<template name="Constellation_dump_restore_menu">
+
+  {{#if Constellation_dump_restoring}}
+    <div class="Constellation_dump_restore_restore Constellation_dump_restore_button">Submit</div>
+  {{else}}
+    <div class="Constellation_dump_restore_dump Constellation_dump_restore_button">Dump as text</div>
+  {{/if}}
+
+  <div class="Constellation_dump_restore_mode {{#unless Constellation_dump_restoring}}Constellation_dump_restore_active{{/unless}}" data-mode="dump" title="{{#unless Constellation_dump_restoring}}Invert selection{{/unless}}">&nbsp;&nbsp;Dump&nbsp;&nbsp;</div><div class="Constellation_dump_restore_mode {{#if Constellation_dump_restoring}}Constellation_dump_restore_active{{/if}}" data-mode="restore">&nbsp;Restore&nbsp;</div>
+  
+</template>
+
+<template name="Constellation_dump_restore_main">
+  {{#if Constellation_dump_restoring}}
+    <textarea class="Constellation_dump_restore_restore_text" placeholder="Paste text version of dumped collection(s) here and click 'Submit'"></textarea>
+  {{else}}
+    <ul class="Constellation_dumpable_collections">
+      {{#each dumpableCollections}}
+        <li class="Constellation_dumpable_collection">
+          <input type="checkbox" class="Constellation_dump_collection_toggle" id="Constellation-dumpable-collection-{{this}}" checked={{dumpCollection}} />&nbsp;
+          <label for="Constellation-dumpable-collection-{{this}}">{{this}}</label>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+</template>
