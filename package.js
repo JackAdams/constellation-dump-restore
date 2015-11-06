@@ -8,10 +8,10 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.1');
+  api.versionsFrom('1.0');
 
   api.use(['templating','blaze','underscore','reactive-dict'], 'client');
-  api.use('constellation:console@1.2.3', 'client');
+  api.use('constellation:console@1.3.0', 'client');
   api.use('juliancwirko:s-alert@3.1.1', 'client');
 
   api.addFiles('dump-restore.css', 'client');

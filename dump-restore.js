@@ -22,6 +22,8 @@ sAlert.config({
     offset: 0
 });
 
+var cannotDump = ["meteor_autoupdate_clientVersions", "meteor_accounts_loginServiceConfiguration"];
+
 // Startup - retrieve the existing schema we've been working on from localStorage
 Meteor.startup(function () {
   DumpRestoreDict.set('collectionsToDump', API.getCollections());
@@ -42,6 +44,14 @@ Template.Constellation_dump_restore_menu.events({
 	  alert('You need to paste the text from a collection dump here, then press \'Submit\'.');
 	  return;	
 	}
+	var localCollectionsOnly = true;
+	Constellation.restoreCollections(text, localCollectionsOnly);
+	text = JSON.stringify(_.reduce(JSON.parse(text), function (memo, docs, collectionName) {
+      if (!Constellation.collectionIsLocal(collectionName)) {
+		memo[collectionName] = docs;  
+	  }
+      return memo;
+	}, {}));
     Meteor.call('Constellation.restoreCollections', text, function (err, res) {
 	  if (err || res) {
 		if (err) {
@@ -61,8 +71,13 @@ Template.Constellation_dump_restore_menu.events({
     });
   },
   'click .Constellation_dump_restore_dump' : function (evt, tmpl) {
-    Meteor.call('Constellation.dumpCollections', DumpRestoreDict.get('collectionsToDump'), function (err, res) {
-      sAlert.info('<textarea class="Constellation_dump_output">' + res + '</textarea>');
+    var localCollectionsOnly = true;
+    var localDump = Constellation.dumpCollections(DumpRestoreDict.get('collectionsToDump'), localCollectionsOnly);
+	var mongoCollections = _.filter(DumpRestoreDict.get('collectionsToDump'), function (collectionName) { return !Constellation.collectionIsLocal(collectionName) && !_.contains(cannotDump, collectionName); });
+    Meteor.call('Constellation.dumpCollections', mongoCollections, function (err, res) {
+      // merge server collection and local collection dumps
+	  var fullDump = JSON.stringify(_.extend(JSON.parse(res), JSON.parse(localDump)));
+      sAlert.info('<textarea class="Constellation_dump_output">' + fullDump + '</textarea>');
       Meteor.defer(function () {
         $('textarea.Constellation_dump_output').select();
       });
@@ -85,7 +100,7 @@ Template.Constellation_dump_restore_menu.events({
 
 Template.Constellation_dump_restore_main.helpers({
   dumpableCollections: function () {
-    return API.getCollections();;
+    return _.filter(API.getCollections(), function (collection) { return !_.contains(cannotDump, collection); });
   },
   dumpCollection: function () {
     var collectionsToDump = DumpRestoreDict.get('collectionsToDump');
