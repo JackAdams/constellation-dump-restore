@@ -7,7 +7,8 @@ API.addTab({
   name: 'Dump/Restore',
   id: 'dump-restore',
   menuContentTemplate: 'Constellation_dump_restore_menu',
-  mainContentTemplate: 'Constellation_dump_restore_main'
+  mainContentTemplate: 'Constellation_dump_restore_main',
+  guideContentTemplate: 'Constellation_dump_restore_guide'
 });
 
 DumpRestoreDict = new ReactiveDict('constellation-dump-restore');

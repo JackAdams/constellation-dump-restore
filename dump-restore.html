@@ -24,3 +24,14 @@
     </ul>
   {{/if}}
 </template>
+
+<template name="Constellation_dump_restore_guide">
+
+  <ul>
+    <li>This plugin lets you dump collections from your database to text and restore them from that same text.</li>
+    <li>To dump collections, click on the <strong>Dump</strong> tab and choose the collections you wish to dump. <u>Note:</u> click on the <strong>Dump</strong> tab again will invert the selection of collections. Once you have chosen the collections to dump, click <strong>Dump as text</strong> and copy the text that is returned to a file.</li>
+    <li>To restore collections, cut and paste the dumped text into the <strong>Restore</strong> tab and click <strong>Submit</strong>.</li>
+    <li><u>Don't</u> try to dump or restore collections with thousands of documents - things will go badly. This is just for a quick dump and restore in the early stages of app development.</li>
+  </ul>
+
+</template>
